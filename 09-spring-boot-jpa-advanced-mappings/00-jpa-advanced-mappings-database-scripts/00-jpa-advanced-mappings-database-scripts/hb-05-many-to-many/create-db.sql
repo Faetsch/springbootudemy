@@ -1,4 +1,4 @@
-DROP SCHEMA IF EXISTS `hb-05-many-to-many`;
+course_studentDROP SCHEMA IF EXISTS `hb-05-many-to-many`;
 
 CREATE SCHEMA `hb-05-many-to-many`;
 
