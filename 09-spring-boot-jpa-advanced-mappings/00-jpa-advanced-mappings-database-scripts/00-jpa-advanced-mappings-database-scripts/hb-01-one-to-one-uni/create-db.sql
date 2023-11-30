@@ -26,5 +26,3 @@ CREATE TABLE `instructor` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 SET FOREIGN_KEY_CHECKS = 1;
-
-select * from `instructor` join `instructor_detail` where `instructor`.`instructor_detail_id` = `instructor_detail`.`id`
