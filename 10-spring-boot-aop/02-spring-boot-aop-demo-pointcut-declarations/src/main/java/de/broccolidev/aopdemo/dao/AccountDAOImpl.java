@@ -3,6 +3,9 @@ package de.broccolidev.aopdemo.dao;
 import de.broccolidev.aopdemo.Account;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Repository
 public class AccountDAOImpl implements AccountDAO {
 
@@ -40,5 +43,25 @@ public class AccountDAOImpl implements AccountDAO {
     public void setServiceCode(String serviceCode) {
         System.out.println(getClass() + ": IN SETTER");
         this.serviceCode = serviceCode;
+    }
+
+    @Override
+    public List<Account> findAccounts(boolean tripWire){
+        if(tripWire) {
+            throw new RuntimeException("simulating exception");
+        }
+        ArrayList<Account> accounts = new ArrayList<>();
+        Account account1 = new Account("Larry", "A");
+        Account account2 = new Account("Michael", "B");
+        Account account3 = new Account("Jim", "C");
+        accounts.add(account1);
+        accounts.add(account2);
+        accounts.add(account3);
+        return accounts;
+    }
+
+    @Override
+    public List<Account> findAccounts(){
+        return findAccounts(false);
     }
 }

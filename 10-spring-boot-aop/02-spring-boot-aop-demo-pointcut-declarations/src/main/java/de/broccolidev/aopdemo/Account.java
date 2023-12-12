@@ -1,5 +1,14 @@
 package de.broccolidev.aopdemo;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@NoArgsConstructor
+@ToString
+@Getter
+@Setter
 public class Account {
 
     private String name;
@@ -10,19 +19,4 @@ public class Account {
         this.level = level;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLevel() {
-        return level;
-    }
-
-    public void setLevel(String level) {
-        this.level = level;
-    }
 }
