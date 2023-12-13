@@ -2,6 +2,7 @@ package de.broccolidev.aopdemo;
 
 import de.broccolidev.aopdemo.dao.AccountDAO;
 import de.broccolidev.aopdemo.dao.MembershipDAO;
+import de.broccolidev.aopdemo.service.TrafficFortuneService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,11 +19,25 @@ public class AopdemoApplication {
 
 
     @Bean
-    public CommandLineRunner commandLineRunner(AccountDAO accountDAO, MembershipDAO membershipDAO) {
+    public CommandLineRunner commandLineRunner(AccountDAO accountDAO, MembershipDAO membershipDAO, TrafficFortuneService trafficFortuneService) {
         return runner -> {
-            demoAfterAdvice(accountDAO, membershipDAO);
+           demoAroundAdviceHandleException(trafficFortuneService);
 
         };
+    }
+
+    private void demoAroundAdviceHandleException(TrafficFortuneService trafficFortuneService) {
+        System.out.println("\nMain: demoAroundAdviceHandleException()");
+        System.out.println("Calling getFortune()");
+        System.out.println(trafficFortuneService.getFortune(true));
+        System.out.println("Finished");
+    }
+
+    private void demoAroundAdvice(TrafficFortuneService trafficFortuneService) {
+        System.out.println("\nMain: demoAroundAdvice()");
+        System.out.println("Calling getFortune()");
+        System.out.println(trafficFortuneService.getFortune());
+        System.out.println("Finished");
     }
 
     private void demoAfterAdvice(AccountDAO accountDAO, MembershipDAO membershipDAO) {

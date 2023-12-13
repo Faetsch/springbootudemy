@@ -3,6 +3,7 @@ package de.broccolidev.aopdemo.aspect;
 import de.broccolidev.aopdemo.Account;
 import de.broccolidev.aopdemo.dao.AccountDAO;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
@@ -16,6 +17,27 @@ import java.util.List;
 @Order(2)
 public class DemoLoggingAspect {
 
+
+    @Around("execution (* de.broccolidev.aopdemo.service.TrafficFortuneService.getFortune(..))")
+    public Object aroundGetFortune(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        String method = proceedingJoinPoint.getSignature().toShortString();
+        System.out.println("Executing @Around " + method);
+        long begin = System.currentTimeMillis();
+
+        Object result = null;
+        try {
+            result = proceedingJoinPoint.proceed();
+        } catch(RuntimeException e) {
+            System.out.println("logging " + e.getMessage());
+            result = "This result was altered by AOP";
+        }
+
+        long end = System.currentTimeMillis();
+        long duration = end - begin;
+
+        System.out.println("\nDuration: " + duration / 1000.0);
+        return result;
+    }
 
     @After("execution (* de.broccolidev.aopdemo.dao.AccountDAO.findAccounts(..))")
     public void afterFinallyFindAccountAdvice(JoinPoint joinPoint) {
